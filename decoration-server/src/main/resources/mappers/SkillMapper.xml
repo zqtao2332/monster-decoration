@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zqtaotao.monster.decoration_server.mapper.SkillMapper">
+
+    <!--表名 -->
+    <sql id="tableName">
+        tb_skill
+    </sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+		skill_id,
+		skill_name,
+		skill_desc,
+		skill_category_id,
+		priority,
+		create_time,
+		last_edit_time
+	</sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+		#{skillId},
+		#{skillName},
+		#{skillDesc},
+		#{skillCategoryEntity.skillCategoryId},
+		#{priority},
+		#{createTime},
+		#{lastEditTime}
+	</sql>
+
+    <select id="queryAll" parameterType="java.lang.String" resultType="cn.zqtaotao.monster.decoration_server.model.entity.SkillEntity">
+        SELECT * FROM
+        <include refid="tableName"></include>
+    </select>
+
+	<select id="queryById" parameterType="java.lang.String" resultType="cn.zqtaotao.monster.decoration_server.model.entity.SkillEntity">
+		SELECT skill_id FROM
+		<include refid="tableName"></include>
+		where skill_id = #{skillId}
+	</select>
+
+	<select id="queryByName" parameterType="java.lang.String" resultType="cn.zqtaotao.monster.decoration_server.model.entity.SkillEntity">
+		SELECT skill_id FROM
+		<include refid="tableName"></include>
+		where skill_name = #{skillName}
+	</select>
+
+
+	<!--新增-->
+	<insert id="insertSkill" parameterType="cn.zqtaotao.monster.decoration_server.mapper.SkillMapper">
+		insert into
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		) values (
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+
+</mapper>

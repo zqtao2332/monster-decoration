@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zqtaotao.monster.decoration_server.mapper.WorkerMapper">
+
+    <!--表名 -->
+    <sql id="tableName">
+        tb_worker
+    </sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+        worker_id,
+        worker_name,
+        worker_desc,
+        img_addr,
+        gender,
+        phone,
+        wechat,
+        experience,
+        worker_category_id,
+        priority,
+        worker_addr,
+        skill_id,
+        template_id,
+        create_time,
+        last_edit_time
+	</sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+        #{workerId},
+        #{workerName},
+        #{workerDesc},
+        #{imgAddr},
+        #{gender},
+        #{phone},
+        #{wechat},
+        #{experience},
+        #{workerCategoryEntity.workerCategoryId},
+        #{priority},
+        #{workerAddr},
+        #{skillEntity.skillId},
+        #{templateEntity.templateId},
+        #{createTime},
+        #{lastEditTime}
+	</sql>
+
+    <select id="queryAll" parameterType="java.lang.String"
+            resultType="cn.zqtaotao.monster.decoration_server.model.entity.WorkerEntity">
+        SELECT * FROM
+        <include refid="tableName"></include>
+    </select>
+
+    <select id="queryByName" parameterType="java.lang.String"
+            resultType="cn.zqtaotao.monster.decoration_server.model.entity.WorkerEntity">
+        SELECT worker_id FROM
+        <include refid="tableName"></include>
+        where worker_name = #{workerName}
+    </select>
+
+    <select id="queryById" parameterType="java.lang.String"
+            resultType="cn.zqtaotao.monster.decoration_server.model.entity.WorkerEntity">
+        SELECT worker_id FROM
+        <include refid="tableName"></include>
+        where worker_id = #{workerId}
+    </select>
+
+
+    <!--新增-->
+    <insert id="insertWorker">
+        insert into
+        <include refid="tableName"></include>
+        (
+        <include refid="Field"></include>
+        ) values (
+        <include refid="FieldValue"></include>
+        )
+    </insert>
+
+</mapper>
