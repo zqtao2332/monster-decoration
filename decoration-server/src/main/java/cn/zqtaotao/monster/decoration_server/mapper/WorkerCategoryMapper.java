@@ -36,7 +36,7 @@ public interface WorkerCategoryMapper {
      * 插入新工人类别
      * @param entity 工人类别实体
      */
-    void insertWorkerCategory(WorkerCategoryEntity entity);
+    int insertWorkerCategory(WorkerCategoryEntity entity);
 
     /**
      * 更新工人类别

@@ -3,6 +3,7 @@ package cn.zqtaotao.monster.decoration_server.mapper;
 import cn.hutool.core.date.DateTime;
 import cn.zqtaotao.monster.decoration_server.model.entity.WorkerCategoryEntity;
 import cn.zqtaotao.monster.decoration_server.util.CommonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class WorkerCategoryMapperTest {
 
     @Autowired
@@ -39,7 +41,14 @@ public class WorkerCategoryMapperTest {
         entity.setCreateTime(DateTime.now());
         entity.setLastEditTime(DateTime.now());
 
-        mapper.insertWorkerCategory(entity);
+        int i = mapper.insertWorkerCategory(entity);
+        System.out.println(i);
+
+        Integer ii = i;
+        log.info("info",ii);
+        log.error("error", ii);
+
+        log.info("info-test", mapper.queryAll());
 
 //        getAll();
     }

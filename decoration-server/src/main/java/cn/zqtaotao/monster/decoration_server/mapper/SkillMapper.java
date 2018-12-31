@@ -31,7 +31,7 @@ public interface SkillMapper {
      * 插入新技术
      * @param entity 技术类实体
      */
-    void insertSkill(SkillEntity entity);
+    int insertSkill(SkillEntity entity);
 
     /**
      * 更新技术

@@ -19,7 +19,7 @@ public interface TemplateMapper {
      * 根据工程模板样例名   查询工程模板样例
      * @return TemplateEntity
      */
-    TemplateEntity queryByCategoryName(String name);
+    TemplateEntity queryByTemplateName(String name);
 
     /**
      * 根据id 查询工程模板样例
@@ -32,7 +32,7 @@ public interface TemplateMapper {
      * 插入新工程模板样例
      * @param entity 工程模板样例实体
      */
-    void insertTemplate(TemplateEntity entity);
+    int insertTemplate(TemplateEntity entity);
 
     /**
      * 更新工程模板样例

@@ -36,7 +36,7 @@ public interface SkillCategoryMapper {
      * 插入新技术类别
      * @param entity 技术类别实体
      */
-    void insertSkillCategory(SkillCategoryEntity entity);
+    int insertSkillCategory(SkillCategoryEntity entity);
 
     /**
      * 更新技术类别

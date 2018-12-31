@@ -31,7 +31,7 @@ public interface TemplateImgsMapper {
      * 插入新工程模板样例图片
      * @param entity 工程模板样例图片实体
      */
-    void insertTemplateImgs(TemplateImgsEntity entity);
+    int insertTemplateImgs(TemplateImgsEntity entity);
 
     /**
      * 更新工程模板样例图片

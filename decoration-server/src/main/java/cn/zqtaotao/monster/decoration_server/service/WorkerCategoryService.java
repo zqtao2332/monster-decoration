@@ -16,7 +16,7 @@ public interface WorkerCategoryService {
      * 插入新工人类别
      * @param entity 工人类别实体
      */
-    void addWorkerCategory(WorkerCategoryEntity workerCategoryEntity);
+    int addWorkerCategory(WorkerCategoryEntity workerCategoryEntity);
 
     /**
      * 更新工人类别

@@ -15,7 +15,7 @@ public interface SkillCategoryService {
      * 插入新工人类别
      * @param skillCategoryEntity 工人类别实体
      */
-    void addSkillCategory(SkillCategoryEntity skillCategoryEntity);
+    int addSkillCategory(SkillCategoryEntity skillCategoryEntity);
 
     /**
      * 更新工人类别

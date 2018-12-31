@@ -1,9 +1,11 @@
 package cn.zqtaotao.monster.decoration_server.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import cn.zqtaotao.monster.decoration_server.mapper.SkillCategoryMapper;
 import cn.zqtaotao.monster.decoration_server.model.entity.SkillCategoryEntity;
 import cn.zqtaotao.monster.decoration_server.service.SkillCategoryService;
 import cn.zqtaotao.monster.decoration_server.util.CommonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +19,15 @@ import java.util.List;
  */
 @Service
 @Transactional
+@Slf4j
 public class SkillCategoryServiceImpl implements SkillCategoryService {
 
+    private final SkillCategoryMapper mapper;
+
     @Autowired
-    SkillCategoryMapper mapper;
+    public SkillCategoryServiceImpl(SkillCategoryMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public List<SkillCategoryEntity> getAll() {
@@ -28,17 +35,22 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
     }
 
     @Override
-    public void addSkillCategory(SkillCategoryEntity skillCategoryEntity) {
+    public int addSkillCategory(SkillCategoryEntity skillCategoryEntity) {
+        log.info("service addSkillCategory");
         SkillCategoryEntity dbentity = mapper.queryByCategoryName(skillCategoryEntity.getSkillCategoryName());
 
-        if (dbentity != null && dbentity.getSkillCategoryId() != null) {
-            skillCategoryEntity.setSkillCategoryName(CommonUtils.getUUid32());
-            mapper.insertSkillCategory(skillCategoryEntity);
-        }
+        if (dbentity != null && dbentity.getSkillCategoryId() != null) return 0;
+        skillCategoryEntity.setSkillCategoryId(CommonUtils.getUUid32());
+        DateTime now = DateTime.now();
+        skillCategoryEntity.setCreateTime(now);
+        skillCategoryEntity.setLastEditTime(now);
+
+        return mapper.insertSkillCategory(skillCategoryEntity);
     }
 
     @Override
     public int modifySkillCategory(SkillCategoryEntity skillCategoryEntity) {
+        log.info("service modifySkillCategory");
         SkillCategoryEntity dbentity = mapper.queryByCategoryName(skillCategoryEntity.getSkillCategoryName());
 
         if (dbentity != null && dbentity.getSkillCategoryId() != null){
@@ -49,6 +61,7 @@ public class SkillCategoryServiceImpl implements SkillCategoryService {
 
     @Override
     public int removeSkillCategoryById(String skillCategoryId) {
+        log.info("service removeSkillCategoryById");
         if (skillCategoryId == null || "".equals(skillCategoryId)) return 0;
 
         SkillCategoryEntity dbentity = mapper.queryByCategoryName(skillCategoryId);

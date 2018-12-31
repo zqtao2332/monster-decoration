@@ -1,10 +1,14 @@
 package cn.zqtaotao.monster.decoration_server.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import cn.zqtaotao.monster.decoration_server.mapper.TemplateMapper;
 import cn.zqtaotao.monster.decoration_server.model.entity.TemplateEntity;
 import cn.zqtaotao.monster.decoration_server.service.TemplateService;
 import cn.zqtaotao.monster.decoration_server.util.CommonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +17,9 @@ import java.util.List;
  * @description:
  * @version: 1.0
  */
+@Service
+@Transactional
+@Slf4j
 public class TemplateServiceImpl implements TemplateService {
 
     private final TemplateMapper mapper;
@@ -28,32 +35,37 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public void addTemplate(TemplateEntity skillEntity) {
-        TemplateEntity dbentity = mapper.queryByCategoryName(skillEntity.getTemplateName());
+    public int addTemplate(TemplateEntity templateEntity) {
+        log.info("service addTemplate");
+        TemplateEntity dbentity = mapper.queryByTemplateName(templateEntity.getTemplateName());
 
-        if (dbentity != null && dbentity.getTemplateId() != null) {
-            skillEntity.setTemplateName(CommonUtils.getUUid32());
-            mapper.insertTemplate(skillEntity);
-        }
+        if (dbentity != null && dbentity.getTemplateId() != null) return 0;
+        templateEntity.setTemplateId(CommonUtils.getUUid32());
+        DateTime now = DateTime.now();
+        templateEntity.setCreateTime(now);
+        templateEntity.setLastEditTime(now);
+        return mapper.insertTemplate(templateEntity);
     }
 
     @Override
-    public int modifyTemplate(TemplateEntity skillEntity) {
-        TemplateEntity dbentity = mapper.queryByCategoryName(skillEntity.getTemplateName());
+    public int modifyTemplate(TemplateEntity templateEntity) {
+        log.info("service modifyTemplate");
+        TemplateEntity dbentity = mapper.queryByTemplateName(templateEntity.getTemplateName());
 
         if (dbentity != null && dbentity.getTemplateName() != null){
-            return mapper.updateTemplate(skillEntity);
+            return mapper.updateTemplate(templateEntity);
         }
         return 0;
     }
 
     @Override
-    public int removeTemplateById(String skillId) {
-        if (skillId == null || "".equals(skillId)) return 0;
+    public int removeTemplateById(String templateId) {
+        log.info("service removeTemplateById");
+        if (templateId == null || "".equals(templateId)) return 0;
 
-        TemplateEntity dbentity = mapper.queryByCategoryName(skillId);
+        TemplateEntity dbentity = mapper.queryByTemplateName(templateId);
         if (dbentity != null){
-            return mapper.deleteTemplateById(skillId);
+            return mapper.deleteTemplateById(templateId);
         }
         return 0;
     }

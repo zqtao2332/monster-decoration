@@ -43,8 +43,8 @@ pagehelper:
   params: count=countSql
 logging:
   level:
-    me:
-      wuwenbin:
-        noteblogv4:
-          dao:
+    cn:
+      zqtaotao:
+        monster:
+          decoration_server:
             mapper: DEBUG

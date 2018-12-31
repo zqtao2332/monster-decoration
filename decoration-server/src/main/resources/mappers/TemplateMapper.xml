@@ -38,7 +38,7 @@
 		where template_id = #{templateId}
 	</select>
 
-	<select id="queryByName" parameterType="java.lang.String" resultType="cn.zqtaotao.monster.decoration_server.model.entity.TemplateEntity">
+	<select id="queryByTemplateName" parameterType="java.lang.String" resultType="cn.zqtaotao.monster.decoration_server.model.entity.TemplateEntity">
 		SELECT template_id FROM
 		<include refid="tableName"></include>
 		where template_name = #{templateName}

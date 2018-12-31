@@ -28,6 +28,9 @@ public class Resp {
     }
 
     // 成功返回
+    public static Resp ok() {
+        return new Resp(SUCCESS, true, null, null);
+    }
     public static Resp ok(String msg) {
         return new Resp(SUCCESS, true, msg, null);
     }
@@ -41,6 +44,10 @@ public class Resp {
     }
 
     // 错误返回
+    public static Resp error() {
+        return new Resp(SERVER_ERROR, false, null, null);
+    }
+
     public static Resp error(String msg) {
         return new Resp(SERVER_ERROR, false, msg, null);
     }
@@ -53,8 +60,10 @@ public class Resp {
         return new Resp(SERVER_ERROR, false, msg, data);
     }
 
+
     /**
      * 返回响应信息实例
+     *
      * @return Resp
      */
     public Resp build() {

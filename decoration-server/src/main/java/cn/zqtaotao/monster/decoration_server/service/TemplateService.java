@@ -17,7 +17,7 @@ public interface TemplateService {
      *
      * @param templateEntity 工程模板实体
      */
-    void addTemplate(TemplateEntity templateEntity);
+    int addTemplate(TemplateEntity templateEntity);
 
     /**
      * 更新工程模板

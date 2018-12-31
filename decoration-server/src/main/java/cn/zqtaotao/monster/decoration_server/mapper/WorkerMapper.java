@@ -35,7 +35,7 @@ public interface WorkerMapper {
      * 插入新工人
      * @param entity 工人实体
      */
-    void insertWorker(WorkerEntity entity);
+    int insertWorker(WorkerEntity entity);
 
     /**
      * 更新工人
