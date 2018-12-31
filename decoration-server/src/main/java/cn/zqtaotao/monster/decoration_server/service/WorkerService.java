@@ -16,7 +16,7 @@ public interface WorkerService {
      * 插入新工人
      * @param entity 工人实体
      */
-    void addWorker(WorkerEntity workerEntity);
+    int addWorker(WorkerEntity workerEntity);
 
     /**
      * 更新工人

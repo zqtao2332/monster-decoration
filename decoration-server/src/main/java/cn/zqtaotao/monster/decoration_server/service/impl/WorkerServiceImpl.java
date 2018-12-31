@@ -1,5 +1,6 @@
 package cn.zqtaotao.monster.decoration_server.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import cn.zqtaotao.monster.decoration_server.mapper.WorkerMapper;
 import cn.zqtaotao.monster.decoration_server.model.entity.WorkerEntity;
 import cn.zqtaotao.monster.decoration_server.service.WorkerService;
@@ -29,13 +30,16 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public void addWorker(WorkerEntity workerEntity) {
+    public int addWorker(WorkerEntity workerEntity) {
         WorkerEntity dbentity = mapper.queryByName(workerEntity.getWorkerName());
 
-        if (dbentity != null && dbentity.getWorkerId() != null) {
-            workerEntity.setWorkerName(CommonUtils.getUUid32());
-            mapper.insertWorker(workerEntity);
-        }
+        if (dbentity != null && dbentity.getWorkerId() != null) return 0;
+        workerEntity.setWorkerName(CommonUtils.getUUid32());
+        DateTime now = DateTime.now();
+        workerEntity.setCreateTime(now);
+        workerEntity.setLastEditTime(now);
+
+        return mapper.insertWorker(workerEntity);
     }
 
     @Override
